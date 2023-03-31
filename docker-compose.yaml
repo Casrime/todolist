@@ -26,6 +26,8 @@ services:
             target: symfony_php
         environment:
             DATABASE_URL: postgresql://${POSTGRES_USER:-symfony}:${POSTGRES_PASSWORD:-ChangeMe}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-13}
+        links:
+            - redis
         restart: unless-stopped
         volumes:
             - php_socket:/var/run/php
@@ -57,6 +59,11 @@ services:
             - target: 443
               published: 443
               protocol: udp
+
+    redis:
+        image: redis:alpine
+        ports:
+            - "6379:6379"
 
 volumes:
     php_socket:

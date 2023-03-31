@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
+use App\Service\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
-    public function __construct(private readonly TaskRepository $taskRepository)
-    {
+    public function __construct(
+        private readonly TaskRepository $taskRepository,
+        private readonly Cache $cache
+    ) {
     }
 
     #[Route(path: '/tasks', name: 'task_list', methods: 'GET')]
     public function list(): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->taskRepository->findAll()]);
+        $tasks = $this->cache->get('tasks', $this->taskRepository->findAll());
+
+        return $this->render('task/list.html.twig', ['tasks' => $tasks]);
     }
 
     #[Route(path: '/tasks/create', name: 'task_create', methods: ['GET', 'POST'])]
@@ -37,6 +42,8 @@ class TaskController extends AbstractController
             $user = $this->getUser();
             $task->setUser($user);
             $this->taskRepository->save($task, true);
+
+            $this->cache->invalidate(['tasks', 'task_'.$task->getId()]);
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
@@ -56,6 +63,8 @@ class TaskController extends AbstractController
             $task = $form->getData();
             $this->taskRepository->save($task, true);
 
+            $this->cache->invalidate(['tasks', 'task_'.$task->getId()]);
+
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
             return $this->redirectToRoute('task_list');
@@ -73,6 +82,8 @@ class TaskController extends AbstractController
         $task->toggle(!$task->isDone());
         $this->taskRepository->save($task, true);
 
+        $this->cache->invalidate(['tasks', 'task_'.$task->getId()]);
+
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
         return $this->redirectToRoute('task_list');
@@ -85,6 +96,8 @@ class TaskController extends AbstractController
     public function deleteTask(Task $task): Response
     {
         $this->taskRepository->remove($task, true);
+
+        $this->cache->invalidate(['tasks', 'task_'.$task->getId()]);
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
