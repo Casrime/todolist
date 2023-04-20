@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/categorys/{id}/edit', name: 'category_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/categories/{id}/edit', name: 'category_edit', methods: ['GET', 'POST'])]
     public function edit(Category $category, Request $request): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
