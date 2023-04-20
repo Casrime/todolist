@@ -8,7 +8,7 @@ jobs:
     tests:
         name: PHP CS Fixer
         # https://hub.docker.com/_/ubuntu/
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-latest
         services:
             # https://hub.docker.com/_/postgres/
             postgresql:
