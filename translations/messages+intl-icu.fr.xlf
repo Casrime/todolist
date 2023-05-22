@@ -2,6 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="fr" datatype="plaintext" original="file.ext">
         <body>
+            <!-- a start -->
             <trans-unit id="app.add">
                 <source>app.add</source>
                 <target>Ajouter</target>
@@ -14,10 +15,15 @@
                 <source>app.admin</source>
                 <target>Administrateur</target>
             </trans-unit>
+            <!-- a end -->
+
+            <!-- b start -->
             <trans-unit id="app.back.to.task.list">
                 <source>app.back.to.task.list</source>
                 <target>Retour à la liste des tâches</target>
             </trans-unit>
+            <!-- b end -->
+
             <trans-unit id="app.cancel">
                 <source>app.cancel</source>
                 <target>Annuler</target>
