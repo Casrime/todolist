@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
     blackfire:
         env_file: .env.local
