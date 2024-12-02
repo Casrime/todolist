@@ -6,6 +6,12 @@
   "prHourlyLimit": 10,
   "separateMajorMinor": true,
   "separateMultipleMajor": true,
-  "automerge": true,
-  "rebaseWhen": "auto"
+  "rebaseWhen": "auto",
+  "packageRules": [
+    {
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+  ]
 }
