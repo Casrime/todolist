@@ -1,4 +1,4 @@
-name: Twig-CS-Fixer
+name: CI
 on: [push]
 
 env:
@@ -6,7 +6,7 @@ env:
 
 jobs:
     tests:
-        name: Twig-CS-Fixer
+        name: CI
         # https://hub.docker.com/_/ubuntu/
         runs-on: ubuntu-latest
         services:
@@ -52,5 +52,18 @@ jobs:
             - name: Install Composer dependencies
               run: composer install
 
-            - name: Run twig-cs-fixer
-              run: vendor/bin/twig-cs-fixer
+            - name: Run checks
+              run: make checks
+
+            # —— Tests ✅ ———————————————————————————————————————————————————————————
+            - name: Create database
+              run: bin/console doctrine:database:create --if-not-exists --env=test
+
+            - name: Run migrations
+              run: bin/console doctrine:migrations:migrate --no-interaction --env=test
+
+            - name: Launch fixtures
+              run: bin/console doctrine:fixtures:load --no-interaction --env=test
+
+            - name: Run phpunit
+              run: SYMFONY_DEPRECATIONS_HELPER=disabled vendor/bin/phpunit
