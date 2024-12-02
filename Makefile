@@ -2,7 +2,7 @@
 BLACKFIRE = $(EXEC) blackfire
 CONSOLE	= $(EXEC) $(CONTAINER_NAME) bin/console
 DOCKER = docker
-DOCKER_COMPOSE = $(DOCKER)-compose
+DOCKER_COMPOSE = $(DOCKER) compose
 EXEC = $(DOCKER_COMPOSE) exec
 TESTS = vendor/bin/phpunit
 
