@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'todolist_task')]
@@ -25,10 +26,16 @@ class Task
         maxMessage: 'app.task.title.max.length',
     )]
     #[ORM\Column(type: 'string')]
+    /**
+     * @Groups({"searchable"})
+     */
     private ?string $title = null;
 
     #[Assert\NotBlank(message: 'app.task.content.not.blank')]
     #[ORM\Column(type: 'text')]
+    /**
+     * @Groups({"searchable"})
+     */
     private ?string $content = null;
 
     #[ORM\Column(type: 'boolean')]
