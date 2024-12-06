@@ -5,7 +5,7 @@
 
 {% block body %}
     <div class="row">
-        {{ form_start(form, {'action': path('category_edit', {'id': category.id})}) }}
+        {{ form_start(form, {action: path('category_edit', {id: category.id})}) }}
             {{ form_widget(form) }}
 
             <button type="submit" class="btn btn-success pull-right">{{ 'app.edit'|trans }}</button>

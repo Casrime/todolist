@@ -102,7 +102,7 @@ phpstan:				## Run phpstan
 						vendor/bin/phpstan analyse --memory-limit=1G
 
 twig-cs-fixer:			## Run twig-cs-fixer
-						vendor/bin/twig-cs-fixer
+						vendor/bin/twig-cs-fixer --fix
 
 yaml-lint:	            ## Run yaml-lint
 						bin/console lint:yaml config translations

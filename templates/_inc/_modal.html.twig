@@ -17,7 +17,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'app.cancel'|trans }}</button>
-                <form action="{{ path('task_delete', {'id': task.id}) }}">
+                <form action="{{ path('task_delete', {id: task.id}) }}">
                     <button class="btn btn-danger">
                         {{ 'app.delete'|trans }}
                     </button>
