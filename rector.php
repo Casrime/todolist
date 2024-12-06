@@ -43,7 +43,6 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
         SetList::EARLY_RETURN,
-        SetList::PSR_4,
         SetList::TYPE_DECLARATION,
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
         DoctrineSetList::DOCTRINE_CODE_QUALITY,
