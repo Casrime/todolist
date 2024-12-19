@@ -16,11 +16,21 @@ class BaseController extends WebTestCase
 
         // get or create the user somehow (e.g. creating some users only
         // for tests while loading the test fixtures)
-        $userRepository = static::getContainer()->get(UserRepository::class);
+        $userRepository = $this->getIdentifier(UserRepository::class);
         $testUser = $userRepository->findOneByEmail($email);
 
         $client->loginUser($testUser);
 
         return $client;
+    }
+
+    protected function getIdentifier(string $containerIdentifier)
+    {
+        return static::getContainer()->get($containerIdentifier);
+    }
+
+    protected function trans(string $identifier, array $parameters = [], string $domain = 'messages')
+    {
+        return $this->getIdentifier('translator')->trans($identifier, $parameters, $domain);
     }
 }

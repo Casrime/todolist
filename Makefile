@@ -115,7 +115,7 @@ rector:					## Run rector
 
 tests:		   			export APP_ENV=test
 tests: 					## Run the tests
-						$(EXEC) $(CONTAINER_NAME) $(TESTS)
+						@$(EXEC) --env SYMFONY_DEPRECATIONS_HELPER=disabled $(CONTAINER_NAME) $(TESTS)
 
 tests-reset:			export APP_ENV=test
 tests-reset: 			## Recreate database, launch migrations, load fixtures and execute tests
